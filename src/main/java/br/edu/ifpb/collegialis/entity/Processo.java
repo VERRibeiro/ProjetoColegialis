@@ -1,6 +1,7 @@
 package br.edu.ifpb.collegialis.entity;
 
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Set;
 
@@ -194,6 +195,15 @@ public class Processo {
 
 	public void setRequerimento(byte[] requerimento) {
 		this.requerimento = requerimento;
+	}
+
+	@Override
+	public String toString() {
+		return "Processo [id=" + id + ", numero=" + numero + ", dataRecepcao=" + dataRecepcao + ", dataDistribuicao="
+				+ dataDistribuicao + ", dataParecer=" + dataParecer + ", requerimento=" + Arrays.toString(requerimento)
+				+ ", parecer=" + Arrays.toString(parecer) + ", decisao=" + decisao + ", status=" + status + ", assunto="
+				+ assunto + ", votos=" + votos + ", relator=" + relator + ", requisitante=" + requisitante
+				+ ", reuniao=" + reuniao + "]";
 	}
 
 }

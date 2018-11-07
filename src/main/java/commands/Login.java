@@ -12,7 +12,7 @@ public class Login implements Command{
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) {
         try {
-        	 
+        	System.out.println("AQUIIIIIIIIIIIIIIII");
             RequestDispatcher d = request.getRequestDispatcher("/login.jsp");
             d.forward(request,response);
  
