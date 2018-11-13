@@ -1,0 +1,33 @@
+package commands;
+
+import java.io.IOException;
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import br.edu.ifpb.collegialis.dao.ColegiadoDAO;
+import br.edu.ifpb.collegialis.dao.ProcessoDAO;
+import br.edu.ifpb.collegialis.entity.Colegiado;
+import br.edu.ifpb.collegialis.entity.Processo;
+
+public class ListarColegiado implements Command{
+
+	@Override
+	public void execute(HttpServletRequest request, HttpServletResponse response) {	
+        EntityManager  em=  (EntityManager) request.getAttribute("em");
+		ColegiadoDAO colegiadodao = new ColegiadoDAO(em);
+		List<Colegiado> colegiado = colegiadodao.findAllAtivos();
+		request.setAttribute("colegiado", colegiado);
+        RequestDispatcher d = request.getRequestDispatcher("/processos.jsp");
+        try {
+			d.forward(request,response);
+		} catch (ServletException | IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+}

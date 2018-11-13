@@ -42,10 +42,7 @@ public class CriarProcesso implements Command{
 		System.out.println(request.getParameter("numero"));
 		Date dataRecepcao = new Date();
 		Date dataDistribuicao = new Date();
-		Date dataParecer = new Date();			
-		int id = Integer.parseInt(request.getParameter("id"));
-		Assunto assunto = new Assunto(); 
-		assunto.setDescricao(request.getParameter("assunto"));		
+		Date dataParecer = new Date();					 		
 		String numero = request.getParameter("numero");	
 		try {
 			dataRecepcao = fmt.parse(request.getParameter("dataRecepcao"));
@@ -54,17 +51,18 @@ public class CriarProcesso implements Command{
 		} catch (ParseException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
-		}						
+		}		
+//		List<Reuniao> r = reuniaodao.findAll();
 		//byte[] parecer = request.getParameter("parecer").getBytes();;
 		String decisaoRelator = request.getParameter("decisaoRelator");
-		String reuniao = request.getParameter("reuniao");
-		List<Reuniao> r = reuniaodao.findAll();
-		Reuniao robject = new Reuniao();
-		for(Reuniao reu : r){
-			if(reu.getData().equals(reuniao))
-				robject = reu;
-		}
-		
+//		String reuniao = request.getParameter("reuniao");
+//		
+//		Reuniao robject = new Reuniao();
+//		for(Reuniao reu : r){
+//			if(reu.getData().equals(reuniao))
+//				robject = reu;
+//		}
+		Assunto assunto = assuntodao.find(Integer.parseInt((request.getParameter("assunto"))));
 		String aluno = request.getParameter("aluno");
 		List<Aluno> a = alunodao.findAll();
 		//TODO passar isso pra classe professorDAO
@@ -82,8 +80,7 @@ public class CriarProcesso implements Command{
 				pobject = pro;
 		}		
 		Processo processo = new Processo();
-		if(processodao.find(id)!= null)
-			processo = processodao.find(id);
+				
 		processodao.beginTransaction();
 		processo.setAssunto(assunto);
 		processo.setDataDistribuicao(dataDistribuicao);
@@ -101,11 +98,9 @@ public class CriarProcesso implements Command{
 			processo.setStatus(TipoStatusProcesso.JULGADO);
 		else
 			processo.setStatus(TipoStatusProcesso.RETIRADO);
-		processo.setReuniao(robject);
-		if(processodao.find(id)!= null)
-			processodao.insert(processo);
-		else
-			processodao.update(processo);
+		//processo.setReuniao(robject);
+		processodao.insert(processo);
+		System.out.println("QUASSEEEEEEEEEEEEEEEEEEE");
 		processodao.commit();
 		System.out.println("CHEGOUUUUUUUUUUUU");
         RequestDispatcher d = request.getRequestDispatcher("/Login.jsp");
