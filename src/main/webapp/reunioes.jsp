@@ -114,7 +114,7 @@
 								<div class="input-group-prepend">
 									<label class="input-group-text" for="processo-select">Processos</label>
 								</div>
-							  	<select class="custom-select" name="processo-select" id="processo-select">
+							  	<select class="custom-select" name="processo-select" id="processos-select">
 								    <option selected disabled>Escolher...</option>
 								    <c:forEach var="processo" items="${processos}">
 								    	<option value="${processo.numero}">${processo.numero}, ${processo.requisitante.nome}</option>
