@@ -35,6 +35,18 @@ public class Aluno implements Serializable {
 	
 	@OneToOne(mappedBy = "representante")
 	private Colegiado colegiado;
+	
+	@Column(name="NU_USER")
+	private Usuario usuario;
+	
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
 
 	public Integer getId() {
 		return id;

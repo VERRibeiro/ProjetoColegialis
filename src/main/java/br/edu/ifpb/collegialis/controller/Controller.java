@@ -30,11 +30,13 @@ import br.edu.ifpb.collegialis.entity.Colegiado;
 import br.edu.ifpb.collegialis.entity.Processo;
 import br.edu.ifpb.collegialis.entity.Professor;
 import br.edu.ifpb.collegialis.entity.Reuniao;
+import br.edu.ifpb.collegialis.entity.Usuario;
 import br.edu.ifpb.collegialis.entity.Voto;
 import br.edu.ifpb.collegialis.type.StatusReuniao;
 import br.edu.ifpb.collegialis.type.TipoDecisao;
+import br.edu.ifpb.collegialis.type.TipoPerfil;
 import br.edu.ifpb.collegialis.type.TipoVoto;
-import commands.Command;
+import br.edu.ifpb.collegialis.commands.Command;
 
 /**
  * Servlet implementation class Controller
@@ -55,6 +57,36 @@ public class Controller extends HttpServlet {
     	
     	EntityManagerFactory  emf=  Persistence.createEntityManagerFactory("collegialis");
         EntityManager  em=  emf.createEntityManager();
+        ProfessorDAO professordao = new ProfessorDAO(em);
+		AlunoDAO alunodao = new AlunoDAO(em);
+        List<Aluno> alunos = alunodao.findAll();
+		List<Professor> professores = professordao.findAll();
+		Aluno aluno = new Aluno();
+		Professor professor = new Professor();
+		Usuario usuario = new Usuario();
+		for(Aluno a: alunos){
+				alunodao.beginTransaction();
+				aluno = a;
+				usuario.setMatricula(aluno.getMatricula());
+				usuario.setSenha("12345");
+				usuario.setTipoPerfil(TipoPerfil.SECRETARIO);
+				aluno.setUsuario(usuario);
+				alunodao.update(aluno);
+				alunodao.commit();
+		}
+		
+		for(Professor p : professores){
+			professordao.beginTransaction();
+			if(professor.getMatricula().equals("1200309"))
+				usuario.setTipoPerfil(TipoPerfil.COORDENADOR);
+			else
+				usuario.setTipoPerfil(TipoPerfil.MEMBRO);
+			usuario.setMatricula(professor.getMatricula());
+			usuario.setSenha("12345");
+			professor.setUsuario(usuario);
+			professordao.update(professor);
+			professordao.commit();
+		}
 
         Command comando = null;        
 	    try {
