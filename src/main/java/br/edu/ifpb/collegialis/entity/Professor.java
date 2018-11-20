@@ -34,6 +34,17 @@ public class Professor implements Serializable {
 	@Column(name="NU_FONE")
 	private String fone;
 	
+	@Column(name="NU_USER")
+	private Usuario usuario;
+	
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
 	@ManyToMany(mappedBy = "membros")
 	private List<Colegiado> colegiados;
 	
