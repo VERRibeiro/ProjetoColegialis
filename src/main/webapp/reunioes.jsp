@@ -17,7 +17,7 @@
 	crossorigin="anonymous">
 </head>
 <body>
-	<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+		<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
 		<a class="navbar-brand" href="#">Collegialis</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#navbarText" aria-controls="navbarText"
@@ -26,10 +26,10 @@
 		</button>
 		<div class="collapse navbar-collapse" id="navbarText">
 			<ul class="navbar-nav mr-auto">
-				<c:if test="${role == 'PROFESSOR' || role == 'COORDENADOR'}">
+				
 					<li class="nav-item"><a class="nav-link"
-						href="controller?command=ListarReunioes">Reuniões</a></li>
-				</c:if>
+						href="controller?command=ListarReunioes">Reuniões</a></li>				
+				<c:if test="${role != 'ALUNO'}">
 				<li class="nav-item"><a class="nav-link" href="controller?command=ListarMeusProcessos">Meus
 						Processos</a></li>
 				<c:if test="${role == 'COORDENADOR'}">
@@ -41,11 +41,12 @@
 								 <a class="dropdown-item"
 								href="controller?command=ListarProcessos">Listar processos
 								cadastrados</a> <a class="dropdown-item"
-								href="controller?command=Login">Distribuir processo a
+								href="controller?command=ListarProcessoRelator">Distribuir processo a
 								relator</a> <a class="dropdown-item"
 								href="controller?command=ListarColegiado">Cadastrar
 								colegiado</a>
 						</div></li>
+						</c:if>
 				</c:if>
 			</ul>
 			<span class="navbar-text"> <a style="padding: 0px;"
@@ -66,8 +67,7 @@
 							<label class="input-group-text" for="status-select">Status</label>
 						</div>
 						<select class="custom-select" name="status-select"
-							id="status-select">
-							<option selected disabled>Escolher...</option>
+							id="status-select">							
 							<option value="Planejada">Planejada</option>
 							<option value="Encerrada">Encerrada</option>
 						</select>
@@ -84,7 +84,7 @@
 								<th scope="col">Data</th>
 								<th scope="col">Processos</th>
 								<th scope="col">Operações</th>
-								<th scope="col">Excluir</th>
+								<th scope="col">Status</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -101,7 +101,7 @@
 										<button class="btn btn-info">PDF</button>
 									</td>
 									<td>
-										<button class="btn btn-danger">X</button>
+										${reuniao.status.texto}
 									</td>
 								</tr>
 							</c:forEach>
@@ -165,7 +165,7 @@
 									<div class="input-group-prepend">
 										<label class="input-group-text" for="processo-select">Processos</label>
 									</div>
-									<select class="custom-select" name="processo-select"
+									<select class="custom-select1" name="processo-select"
 										id="processos-select">
 										<option selected disabled>Escolher...</option>
 										<c:forEach var="processo" items="${processos}">
@@ -196,7 +196,7 @@
 									<tbody id="processos-table">
 									</tbody>
 								</table>
-								<input type="submit">
+								<input type="submit" id="reuniao-submit" class="btn btn-primary" value="Cadastrar Reunião">
 							</div>
 						</div>
 

@@ -23,25 +23,27 @@
 		</button>
 		<div class="collapse navbar-collapse" id="navbarText">
 			<ul class="navbar-nav mr-auto">
-				<c:if test="${role == 'PROFESSOR' || role == 'COORDENADOR'}">
-					<li class="nav-item"><a class="nav-link" href="controller?command=ListarReunioes">Reuniões</a>
-					</li>
-				</c:if>
-				<li class="nav-item"><a class="nav-link" href="controller?command=ListarMeusProcessos">Meus Processos</a>
-				</li>
+				
+					<li class="nav-item"><a class="nav-link"
+						href="controller?command=ListarReunioes">Reuniões</a></li>				
+				<c:if test="${role != 'ALUNO'}">
+				<li class="nav-item"><a class="nav-link" href="controller?command=ListarMeusProcessos">Meus
+						Processos</a></li>
 				<c:if test="${role == 'COORDENADOR'}">
-					<li class="nav-item dropdown">
-				        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				          Operações
-				        </a>
-				        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-				          <a class="dropdown-item" href="controller?command=Login">Cadastrar/modificar processo</a>
-				          <a class="dropdown-item" href="controller?command=ListarProcessos">Listar processos cadastrados</a>
-				          <a class="dropdown-item" href="controller?command=Login">Distribuir processo a relator</a>
-						  <a class="dropdown-item" href="controller?command=ListarColegiado">Cadastrar colegiado</a>
-						  <a class="dropdown-item" href="controller?command=ListarReunioes">Criar/Listar reunião</a>
-				        </div>
-				      </li>
+					<li class="nav-item dropdown"><a
+						class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+						role="button" data-toggle="dropdown" aria-haspopup="true"
+						aria-expanded="false"> Operações </a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+								 <a class="dropdown-item"
+								href="controller?command=ListarProcessos">Listar processos
+								cadastrados</a> <a class="dropdown-item"
+								href="controller?command=ListarProcessoRelator">Distribuir processo a
+								relator</a> <a class="dropdown-item"
+								href="controller?command=ListarColegiado">Cadastrar
+								colegiado</a>
+						</div></li>
+						</c:if>
 				</c:if>
 			</ul>
 			<span class="navbar-text"> <a style="padding: 0px;"

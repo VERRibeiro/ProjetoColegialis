@@ -26,7 +26,7 @@ Processos.add = function(p) {
 					<td>${p.relator}</td>
 					<td><button id="${p.id}" class="btn btn-danger">Excluir</button></td>
 				</tr>`;
-	var customSelect = document.querySelector(".custom-select");
+	var customSelect = document.querySelector(".custom-select1");
 	var input = `<input type='checkbox' name='processo' value='${customSelect.value}' checked style='display:none;'>`;
 	const table = document.getElementById("processos-table");
 	const form = document.getElementById("criarReuniao");

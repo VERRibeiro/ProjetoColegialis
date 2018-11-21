@@ -42,8 +42,7 @@ public class CriarProcesso implements Command{
 		processodao.beginTransaction();
 		Processo processo = new Processo();
 		processo.setNumero(request.getParameter("numero"));
-		processo.setAssunto(assuntodao.find(Integer.parseInt(request.getParameter("assunto"))));
-		processo.setRelator(professordao.find(Integer.parseInt(request.getParameter("professor"))));
+		processo.setAssunto(assuntodao.find(Integer.parseInt(request.getParameter("assunto"))));		
 		processo.setRequisitante(alunodao.find(Integer.parseInt(request.getParameter("aluno"))));
 		System.out.println(processo.toString());
 		processodao.insert(processo);

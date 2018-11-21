@@ -37,7 +37,8 @@ public class CriarReuniao implements Command{
 //			processoList.add(processodao.find(Integer.parseInt(processoString[i])));
 //		}
 //		processoList.add(processodao.find(8));
-//		processoList.add(processodao.find(9));
+		Processo processo = processodao.find(Integer.parseInt(request.getParameter("processo")));
+		
 //		System.out.println(processodao.find(9).toString());
 		session.getAttribute("usuario");
 		if(session.getAttribute("usuario") instanceof Professor)
@@ -57,7 +58,10 @@ public class CriarReuniao implements Command{
 		System.out.println(reuniao.toString());
 		reuniaodao.insert(reuniao);
 		reuniaodao.commit();		
-		
+		processodao.beginTransaction();
+		processo.setReuniao(reuniao);
+		processodao.update(processo);
+		processodao.commit();
 		try {
 			response.sendRedirect("controller?command=ListarReunioes");
 		} catch (IOException e) {

@@ -21,6 +21,8 @@ public class RealizarReuniao implements Command{
         ProcessoDAO processodao = new ProcessoDAO(em);
 		ProfessorDAO professordao = new ProfessorDAO(em);
 		ReuniaoDAO reuniaodao = new ReuniaoDAO(em);
+		System.out.println("AAAAAAAAAAA");
+		System.out.println(request.getParameter("id"));
 		Reuniao reuniao = reuniaodao.find(Integer.parseInt(request.getParameter("id")));
 		request.setAttribute("reuniao", reuniao);
 		request.setAttribute("processos", reuniao.getProcessos());

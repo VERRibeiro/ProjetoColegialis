@@ -12,7 +12,7 @@
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+		<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
 		<a class="navbar-brand" href="#">Collegialis</a>
 		<button class="navbar-toggler" type="button" data-toggle="collapse"
 			data-target="#navbarText" aria-controls="navbarText"
@@ -21,25 +21,27 @@
 		</button>
 		<div class="collapse navbar-collapse" id="navbarText">
 			<ul class="navbar-nav mr-auto">
-				<c:if test="${role == 'PROFESSOR' || role == 'COORDENADOR'}">
-					<li class="nav-item"><a class="nav-link" href="controller?command=ListarReunioes">Reuniões</a>
-					</li>
-				</c:if>
-				<li class="nav-item"><a class="nav-link" href="controller?command=ListarMeusProcessos">Meus Processos</a>
-				</li>
+				
+					<li class="nav-item"><a class="nav-link"
+						href="controller?command=ListarReunioes">Reuniões</a></li>				
+				<c:if test="${role != 'ALUNO'}">
+				<li class="nav-item"><a class="nav-link" href="controller?command=ListarMeusProcessos">Meus
+						Processos</a></li>
 				<c:if test="${role == 'COORDENADOR'}">
-					<li class="nav-item dropdown">
-				        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-				          Operações
-				        </a>
-				        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-				          <a class="dropdown-item" href="controller?command=Login">Cadastrar/modificar processo</a>
-				          <a class="dropdown-item" href="controller?command=Login">Listar processos cadastrados</a>
-				          <a class="dropdown-item" href="controller?command=Login">Distribuir processo a relator</a>
-						  <a class="dropdown-item" href="controller?command=ListarColegiado">Cadastrar colegiado</a>
-						  <a class="dropdown-item" href="controller?command=ListarReunioes">Criar/Listar reunião</a>
-				        </div>
-				      </li>
+					<li class="nav-item dropdown"><a
+						class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+						role="button" data-toggle="dropdown" aria-haspopup="true"
+						aria-expanded="false"> Operações </a>
+						<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+								 <a class="dropdown-item"
+								href="controller?command=ListarProcessos">Listar processos
+								cadastrados</a> <a class="dropdown-item"
+								href="controller?command=ListarProcessoRelator">Distribuir processo a
+								relator</a> <a class="dropdown-item"
+								href="controller?command=ListarColegiado">Cadastrar
+								colegiado</a>
+						</div></li>
+						</c:if>
 				</c:if>
 			</ul>
 			<span class="navbar-text"> <a style="padding: 0px;"
@@ -62,8 +64,7 @@
 					      <th scope="col">Numero</th>
 					      <th scope="col">Assunto</th>
 					      <th scope="col">Relator</th>
-					      <th scope="col">Requisitante</th>		
-					      <th scope="col">Parecer</th>			     
+					      <th scope="col">Requisitante</th>							      	    
 					    </tr>
 					  </thead>
 					  <tbody>
@@ -72,8 +73,7 @@
 						      <td>${processo.numero}</td>
 						      <td>${processo.assunto.descricao}</td>
 						      <td>${processo.relator.nome}</td>
-						      <td>${processo.requisitante.nome}</td>
-						      <td>${processo.decisao.texto}</td>									     
+						      <td>${processo.requisitante.nome}</td>						      									    
 						    </tr>
 					  	</c:forEach>
 	
@@ -87,7 +87,7 @@
 				<div class="newMeeting-container">
 			<h3>Redigir Parecer</h3>
 			<div class="card">
-				<form action="controller?command=RedigirParecer" method="POST">
+				<form action="controller?command=DestribuirProcessoRelator" method="POST">
 
 					
 
@@ -106,15 +106,16 @@
 	
 						  <div class="input-group">
 								<div class="input-group-prepend" class="col-md-5 form-group" style="margin-top:20px;">
-									<span class="input-group-text">Decisao</span>
-						  						<select name="decisao">				
-							  <option value="deferido">Deferido</option>
-							  <option value="indeferido">Indeferido</option>													  							  
+									<span class="input-group-text">Professor</span>
+									<select name="professor">
+						  						 <c:forEach var="professor" items="${professores}">				   					
+							  <option value="${professor.id}">${professor.nome}</option>													  	
+						  </c:forEach>
 						  </select>
 						  </div>
 						  
 						  </div>
-						  <input type="submit">							
+						  <input type="submit" id="reuniao-submit" class="btn btn-primary" value="Cadastrar Reunião">					
 						</div>
 					</div>	
 					</div>
