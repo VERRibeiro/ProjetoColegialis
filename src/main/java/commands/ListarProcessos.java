@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import br.edu.ifpb.collegialis.dao.ProcessoDAO;
 import br.edu.ifpb.collegialis.entity.Processo;
-import br.edu.ifpb.collegialis.test.InsereDadosBanco;
+
 //Listar todos os processos
 public class ListarProcessos implements Command{
 

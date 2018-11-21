@@ -20,8 +20,12 @@ public class ListarReunioes implements Command{
 	public void execute(HttpServletRequest request, HttpServletResponse response) {	
         EntityManager  em=  (EntityManager) request.getAttribute("em");
 		ReuniaoDAO reuniaodao = new ReuniaoDAO(em);
+		ProcessoDAO processodao = new ProcessoDAO(em);
+		List<Processo> processo = processodao.findAll();
 		List<Reuniao> p = reuniaodao.findAll();
 		request.setAttribute("reunioes", p);
+		request.setAttribute("processos", processo);
+		
         RequestDispatcher d = request.getRequestDispatcher("/reunioes.jsp");
         try {
 			d.forward(request,response);

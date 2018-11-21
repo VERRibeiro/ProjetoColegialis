@@ -18,15 +18,15 @@
 	<div class="container">
 		<div class="row justify-content-center">
 			<div class="card col-md-6">
-				<form style="padding: 15px;">
+				<form style="padding: 15px;" method="POST" action="controller?command=Login">
 					<h3 style="text-align: center;">Login</h3>
 					<div class="form-group" >
 					    <label for="input-email">E-mail</label>
-					    <input type="email" class="form-control" name="input-email" placeholder="fulano@dominio.com" required>
+					    <input type="text" class="form-control" name="matricula" placeholder="1522313" required>
 					</div>
 					<div class="form-group" >
 					    <label for="input-senha">Senha</label>
-					    <input type="password" class="form-control" name="input-senha"  placeholder="******" required>
+					    <input type="password" class="form-control" name="senha"  placeholder="******" required>
 					</div>
 					<div class="form-group">
 						<label for="input-tipo">Sou</label>

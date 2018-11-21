@@ -1,6 +1,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix = "fn" uri = "http://java.sun.com/jsp/jstl/functions" %>
+<%@ page import="br.edu.ifpb.collegialis.type.TipoDecisao" %>
+<%@ page import="br.edu.ifpb.collegialis.type.TipoStatusProcesso" %>
 
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
@@ -82,7 +84,7 @@
 		<div class="newMeeting-container">
 			<h3>Nova reunião</h3>
 			<div class="card">
-				<form action="" method="POST">
+				<form>
 
 					<div class="form-row justify-content-between" style="padding: 15px">
 						<div class="col-md-4 form-group">
@@ -90,20 +92,20 @@
 								<div class="input-group-prepend">
 									<span class="input-group-text">Reunião</span>
 								</div>
-							    <input type="text" aria-label="mes" class="form-control" placeholder="Mês" required>
-							    <input type="text" aria-label="ano" class="form-control" placeholder="Ano" required>
+							    <input type="text" id="mes-input" aria-label="mes" class="form-control" placeholder="Mês" required>
+							    <input type="text" id="ano-input" aria-label="ano" class="form-control" placeholder="Ano" required>
 							</div>
 							<br>
 							<div class="input-group">
 								<div class="input-group-prepend">
 									<span class="input-group-text">Data</span>
 								</div>							    
-								<input type="date" aria-label="mes" name="data" class="form-control" required>
+								<input type="date" id="data-input" name="data" class="form-control" required>
 							</div>
 						</div>
 						<div class="col-md-4 form-group">
 							<p>Observações: </p>
-							<textarea class="form-control" name="observacoes" rows="3"></textarea>
+							<textarea id="observacoes-input" class="form-control" name="observacoes" rows="3"></textarea>
 						</div>
 					</div>
 
@@ -117,7 +119,9 @@
 							  	<select class="custom-select" name="processo-select" id="processos-select">
 								    <option selected disabled>Escolher...</option>
 								    <c:forEach var="processo" items="${processos}">
-								    	<option value="${processo.numero}">${processo.numero}, ${processo.requisitante.nome}</option>
+								    	<c:if test="${ processo.decisao == null && processo.status != TipoStatusProcesso.JULGADO}">
+								    		<option value="${processo.id}">${processo.numero}, ${processo.requisitante.nome}</option>
+								    	</c:if>
 								    </c:forEach>
 								</select>
 								<div class="input-group-append">
@@ -137,23 +141,9 @@
 							    </tr>
 							  </thead>
 							  <tbody id="processos-table">
-							  
-							  <!-- 
-							  	<c:forEach var="processo" items="${processo}">
-							 		<tr id="${processo.numero}">
-								      <th scope="col">${processo.numero}</th>
-								      <td>${processo.requisitante.nome}</td>
-								      <td>${processo.decisao}</td>
-								      <td>${processo.relator.nome}</td>
-								      <td style="text-align: center">
-								      	<button class="btn btn-danger" type="button">X</button>
-								      </td>
-							    	</tr>
-							  	</c:forEach>
-							  	 -->
 							  </tbody>
 							</table>
-							<button class="btn btn-primary" type="submit">Salvar</button>
+							<button id="reuniao-submit" class="btn btn-primary" type="button">Salvar</button>
 						</div>
 					</div>	
 
@@ -165,7 +155,8 @@
 		</div>
 
 	</div>
-
-	<script src="assets/js/reunioes.js"></script>
+<script src="assets/js/jquery/jquery-3.3.1.min.js"></script>
+<script src="assets/js/bootstrap/bootstrap.min.js"></script>
+<script src="assets/js/reunioes.js"></script>
 </body>
 </html>

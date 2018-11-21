@@ -32,7 +32,7 @@ public class ReuniaoDAO extends GenericDAO<Reuniao, Integer> implements Serializ
 	@SuppressWarnings("unchecked")
 	public List<Reuniao> findAll() throws DAOException {
 		try {
-		Query q = this.getEntityManager().createQuery("from Reuniao p order by p.nome asc");
+		Query q = this.getEntityManager().createQuery("from Reuniao p");
 		return (List<Reuniao>) q.getResultList();
 		} catch(PersistenceException e) {
 			throw new DAOException("N�o foi poss�vel obter todos as reunioes do banco. " + e.getMessage());
@@ -52,7 +52,7 @@ public class ReuniaoDAO extends GenericDAO<Reuniao, Integer> implements Serializ
 
 	public List<Reuniao> findDoColegiado(Colegiado colegiado) {
 		try {
-			Query q = this.getEntityManager().createQuery("from Reuniao p where p.colegiado = :colegiado order by p.nome asc");
+			Query q = this.getEntityManager().createQuery("from Reuniao p where p.colegiado = :colegiado");
 			q.setParameter("colegiado", colegiado);
 			return (List<Reuniao>) q.getResultList();
 			} catch(PersistenceException e) {
