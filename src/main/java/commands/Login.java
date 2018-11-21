@@ -26,8 +26,8 @@ public class Login implements Command{
 		AlunoDAO alunodao = new AlunoDAO(em);
 		List<Aluno> alunos = alunodao.findAll();
 		List<Professor> professores = professordao.findAll();	
-		Aluno aluno = null;
-		Professor professor = null;
+		Aluno aluno = new Aluno();
+		Professor professor = new Professor();
 		for(Aluno a: alunos){
 			if(a.getMatricula().equals(matricula)){
 				HttpSession session = request.getSession();

@@ -222,17 +222,17 @@ public class InsereDadosBanco {
 		pdao.insert(p5);
 		
 		Professor p6 = new Professor();
-		p5.setNome("Heremita");
-		p5.setEmail("tgouveia@ifpb.edu.br");
-		p5.setMatricula("1200319");
-		p5.setFone("99347084");
+		p6.setNome("Heremita");
+		p6.setEmail("tgouveia@ifpb.edu.br");
+		p6.setMatricula("1200319");
+		p6.setFone("99347084");
 		pdao.insert(p6);
 		
 		Professor p7 = new Professor();
-		p5.setNome("Juliana");
-		p5.setEmail("tgouveia@ifpb.edu.br");
-		p5.setMatricula("1200323");
-		p5.setFone("99347084");
+		p7.setNome("Juliana");
+		p7.setEmail("tgouveia@ifpb.edu.br");
+		p7.setMatricula("1200323");
+		p7.setFone("99347084");
 		pdao.insert(p7);
 		pdao.commit();
 	}
