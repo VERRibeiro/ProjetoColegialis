@@ -24,10 +24,10 @@
 		<div class="collapse navbar-collapse" id="navbarText">
 			<ul class="navbar-nav mr-auto">
 				<c:if test="${role == 'PROFESSOR' || role == 'COORDENADOR'}">
-					<li class="nav-item"><a class="nav-link" href="#">Reuniões</a>
+					<li class="nav-item"><a class="nav-link" href="controller?command=ListarReunioes">Reuniões</a>
 					</li>
 				</c:if>
-				<li class="nav-item"><a class="nav-link" href="#">Meus Processos</a>
+				<li class="nav-item"><a class="nav-link" href="controller?command=ListarMeusProcessos">Meus Processos</a>
 				</li>
 				<c:if test="${role == 'COORDENADOR'}">
 					<li class="nav-item dropdown">
@@ -35,11 +35,11 @@
 				          Operações
 				        </a>
 				        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-				          <a class="dropdown-item" href="#">Cadastrar/modificar processo</a>
-				          <a class="dropdown-item" href="#">Listar processos cadastrados</a>
-				          <a class="dropdown-item" href="#">Distribuir processo a relator</a>
-						  <a class="dropdown-item" href="#">Cadastrar colegiado</a>
-						  <a class="dropdown-item" href="#">Criar/Listar reunião</a>
+				          <a class="dropdown-item" href="controller?command=Login">Cadastrar/modificar processo</a>
+				          <a class="dropdown-item" href="controller?command=ListarProcessos">Listar processos cadastrados</a>
+				          <a class="dropdown-item" href="controller?command=Login">Distribuir processo a relator</a>
+						  <a class="dropdown-item" href="controller?command=ListarColegiado">Cadastrar colegiado</a>
+						  <a class="dropdown-item" href="controller?command=ListarReunioes">Criar/Listar reunião</a>
 				        </div>
 				      </li>
 				</c:if>

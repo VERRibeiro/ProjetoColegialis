@@ -30,8 +30,7 @@ public class ColegiadoDAO extends GenericDAO<Colegiado, Integer> implements Seri
 	@SuppressWarnings("unchecked")
 	public List<Colegiado> findAllAtivos() throws DAOException {
 		try {
-			Query q = this.getEntityManager().createQuery("from Colegiado c where c.ativo = :ativo order by c.dataInicio desc");
-			q.setParameter("ativo", true);
+			Query q = this.getEntityManager().createQuery("from Colegiado c"); 
 			return (List<Colegiado>) q.getResultList();
 		} catch (PersistenceException e) {
 			throw new DAOException("N�o foi poss�vel obter todos os coordenadores do banco. " + e.getMessage());

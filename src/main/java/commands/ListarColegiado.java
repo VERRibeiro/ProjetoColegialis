@@ -9,10 +9,12 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import br.edu.ifpb.collegialis.dao.AlunoDAO;
 import br.edu.ifpb.collegialis.dao.ColegiadoDAO;
-import br.edu.ifpb.collegialis.dao.ProcessoDAO;
+import br.edu.ifpb.collegialis.dao.ProfessorDAO;
+import br.edu.ifpb.collegialis.entity.Aluno;
 import br.edu.ifpb.collegialis.entity.Colegiado;
-import br.edu.ifpb.collegialis.entity.Processo;
+import br.edu.ifpb.collegialis.entity.Professor;
 
 public class ListarColegiado implements Command{
 
@@ -20,9 +22,15 @@ public class ListarColegiado implements Command{
 	public void execute(HttpServletRequest request, HttpServletResponse response) {	
         EntityManager  em=  (EntityManager) request.getAttribute("em");
 		ColegiadoDAO colegiadodao = new ColegiadoDAO(em);
+		ProfessorDAO professordao = new ProfessorDAO(em);
+		AlunoDAO alunodao = new AlunoDAO(em);
 		List<Colegiado> colegiado = colegiadodao.findAllAtivos();
-		request.setAttribute("colegiado", colegiado);
-        RequestDispatcher d = request.getRequestDispatcher("/processos.jsp");
+		List<Aluno> alunos = alunodao.findAll();
+		List<Professor> professores = professordao.findAll();
+		request.setAttribute("colegiados", colegiado);
+		request.setAttribute("alunos", alunos);
+		request.setAttribute("professores", professores);
+        RequestDispatcher d = request.getRequestDispatcher("/colegiado.jsp");
         try {
 			d.forward(request,response);
 		} catch (ServletException | IOException e) {

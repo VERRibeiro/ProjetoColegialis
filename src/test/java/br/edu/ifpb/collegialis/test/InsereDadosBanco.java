@@ -220,7 +220,20 @@ public class InsereDadosBanco {
 		p5.setMatricula("1200313");
 		p5.setFone("99347084");
 		pdao.insert(p5);
-
+		
+		Professor p6 = new Professor();
+		p5.setNome("Heremita");
+		p5.setEmail("tgouveia@ifpb.edu.br");
+		p5.setMatricula("1200319");
+		p5.setFone("99347084");
+		pdao.insert(p6);
+		
+		Professor p7 = new Professor();
+		p5.setNome("Juliana");
+		p5.setEmail("tgouveia@ifpb.edu.br");
+		p5.setMatricula("1200323");
+		p5.setFone("99347084");
+		pdao.insert(p7);
 		pdao.commit();
 	}
 
@@ -240,6 +253,8 @@ public class InsereDadosBanco {
 			Professor p3 = pdao.find(3);
 			Professor p4 = pdao.find(4);
 			Professor p5 = pdao.find(5);
+			Professor p6 = pdao.find(6);
+			Professor p7 = pdao.find(7);
 			
 			AlunoDAO adao = new AlunoDAO(em);
 			Aluno a1 = adao.find(1);
@@ -251,11 +266,13 @@ public class InsereDadosBanco {
 			membrosTSI.add(p1);
 			membrosTSI.add(p2);
 			membrosTSI.add(p3);
+			membrosTSI.add(p6);			
 
 			// Redes
 			membrosRedes.add(p4);
 			membrosRedes.add(p5);
 			membrosRedes.add(p1);
+			membrosRedes.add(p7);
 			
 			ColegiadoDAO cdao = new ColegiadoDAO(em);
 			cdao.beginTransaction();
@@ -445,7 +462,7 @@ public class InsereDadosBanco {
 			r1.setData(fmt.parse("21/03/2016"));
 			r1.setStatus(StatusReuniao.ENCERRADA);
 			r1.setProcessos(procs1);
-
+			
 			Reuniao r2 = new Reuniao();
 			r2.setColegiado(coltsi);
 			r2.setData(fmt.parse("27/05/2016"));
@@ -463,6 +480,20 @@ public class InsereDadosBanco {
 			rdao.insert(r3);
 
 			rdao.commit();
+			pdao.beginTransaction();
+			for(Processo p : procs1){
+				p.setReuniao(r1);
+				pdao.update(p);
+			}
+			for(Processo p : procs2){
+				p.setReuniao(r2);
+				pdao.update(p);
+			}
+			for(Processo p : procs3){
+				p.setReuniao(r3);
+				pdao.update(p);
+			}
+			pdao.commit();
 		} catch (ParseException e) {
 			Assert.fail();
 		}

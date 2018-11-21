@@ -37,79 +37,23 @@ public class CriarProcesso implements Command{
 		AssuntoDAO assuntodao = new AssuntoDAO(em);
 		ProfessorDAO professordao = new ProfessorDAO(em);
 		AlunoDAO alunodao = new AlunoDAO(em);
-		ReuniaoDAO reuniaodao = new ReuniaoDAO(em);
-		System.out.println("COMEÇOUUUUUUU");
-		System.out.println(request.getParameter("numero"));
-		Date dataRecepcao = new Date();
-		Date dataDistribuicao = new Date();
-		Date dataParecer = new Date();					 		
-		String numero = request.getParameter("numero");	
-		try {
-			dataRecepcao = fmt.parse(request.getParameter("dataRecepcao"));
-			dataDistribuicao = fmt.parse(request.getParameter("dataDistribuicao"));
-			dataParecer = fmt.parse(request.getParameter("dataParecer"));
-		} catch (ParseException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}		
-//		List<Reuniao> r = reuniaodao.findAll();
-		//byte[] parecer = request.getParameter("parecer").getBytes();;
-		String decisaoRelator = request.getParameter("decisaoRelator");
-//		String reuniao = request.getParameter("reuniao");
-//		
-//		Reuniao robject = new Reuniao();
-//		for(Reuniao reu : r){
-//			if(reu.getData().equals(reuniao))
-//				robject = reu;
-//		}
-		Assunto assunto = assuntodao.find(Integer.parseInt((request.getParameter("assunto"))));
-		String aluno = request.getParameter("aluno");
-		List<Aluno> a = alunodao.findAll();
-		//TODO passar isso pra classe professorDAO
-		Aluno aobject = new Aluno();
-		for(Aluno alu : a){
-			if(alu.getNome().equals(aluno))
-				aobject = alu;
-		}
-		String professor = request.getParameter("professor");	
-		List<Professor> p = professordao.findAll();
-		//TODO passar isso pra classe professorDAO
-		Professor pobject = new Professor();
-		for(Professor pro : p){
-			if(pro.getNome().equals(professor))
-				pobject = pro;
-		}		
-		Processo processo = new Processo();
-				
+
+		
 		processodao.beginTransaction();
-		processo.setAssunto(assunto);
-		processo.setDataDistribuicao(dataDistribuicao);
-		processo.setDataRecepcao(dataRecepcao);
-		processo.setDataParecer(dataParecer);
-		processo.setNumero(numero);
-		//processo.setParecer(parecer);
-		if(request.getParameter("decisaoRelator").equals("deferido"))
-			processo.setDecisao(TipoDecisao.DEFERIDO);
-		else
-			processo.setDecisao(TipoDecisao.INDEFERIDO);
-		processo.setRelator(pobject);
-		processo.setRequisitante(aobject);			
-		if(request.getParameter("status").equals("julgado"))				
-			processo.setStatus(TipoStatusProcesso.JULGADO);
-		else
-			processo.setStatus(TipoStatusProcesso.RETIRADO);
-		//processo.setReuniao(robject);
+		Processo processo = new Processo();
+		processo.setNumero(request.getParameter("numero"));
+		processo.setAssunto(assuntodao.find(Integer.parseInt(request.getParameter("assunto"))));
+		processo.setRelator(professordao.find(Integer.parseInt(request.getParameter("professor"))));
+		processo.setRequisitante(alunodao.find(Integer.parseInt(request.getParameter("aluno"))));
+		System.out.println(processo.toString());
 		processodao.insert(processo);
-		System.out.println("QUASSEEEEEEEEEEEEEEEEEEE");
 		processodao.commit();
-		System.out.println("CHEGOUUUUUUUUUUUU");
-        RequestDispatcher d = request.getRequestDispatcher("/Login.jsp");
-        try {
-			d.forward(request,response);
-		} catch (ServletException | IOException e) {
+		
+		try {
+			response.sendRedirect("controller?command=ListarProcessos");
+		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-
 }

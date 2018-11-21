@@ -1,6 +1,7 @@
 package br.edu.ifpb.collegialis.entity;
 
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -106,5 +107,11 @@ public class Reuniao {
 
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
+	}
+
+	@Override
+	public String toString() {
+		return "Reuniao [id=" + id + ", data=" + data + ", descricao=" + descricao + ", status=" + status + ", ata="
+				+ Arrays.toString(ata) + ", colegiado=" + colegiado + ", processos=" + processos + "]";
 	}
 }

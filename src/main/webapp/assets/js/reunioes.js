@@ -19,14 +19,18 @@ Processos.add = function(p) {
 		return;
 	}
 	this.processos.push(p);
-	const row = `<tr>
+	var row = `<tr>
 					<td>${p.numero}</td>
 					<td>${p.requisitante}</td>
 					<td>${p.assunto}</td>
 					<td>${p.relator}</td>
-					<td><button id="${p.numero}" class="btn btn-danger">Excluir</button></td>
+					<td><button id="${p.id}" class="btn btn-danger">Excluir</button></td>
 				</tr>`;
+	var customSelect = document.querySelector(".custom-select");
+	var input = `<input type='checkbox' name='processo' value='${customSelect.value}' checked style='display:none;'>`;
 	const table = document.getElementById("processos-table");
+	const form = document.getElementById("criarReuniao");
+	form.insertAdjacentHTML("beforeend", input);
 	table.insertAdjacentHTML("beforeend", row);
 	const botaoExcluir = document.getElementById(`${p.numero}`).addEventListener("click", (e) => {
 		let row = e.target.parentNode.parentNode;
